@@ -23,7 +23,8 @@
 		}
 
 	// query to select all information from supplier table
-		$query = "SELECT * FROM player";
+		$query = "SELECT name, avg, bats FROM player where position !='P' and status = 'A' ";
+
 
 	// Get results from query
 		$result = mysqli_query($conn, $query);
