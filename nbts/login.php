@@ -28,7 +28,7 @@
 	      $username = mysqli_real_escape_string($db,$_POST['username']);
 	      $password = mysqli_real_escape_string($db,$_POST['password']);
 
-	      $sql = "SELECT * FROM Users WHERE username='$username'; ";
+	      $sql = "SELECT * FROM user WHERE username='$username'; ";
 	      $result = mysqli_query($db,$sql);
 				// If query worked we got the right row
 				if($row = mysqli_fetch_assoc($result)) {
