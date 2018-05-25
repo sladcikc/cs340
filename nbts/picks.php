@@ -32,7 +32,7 @@
 		}
 	// get number of columns in table
 		$fields_num = mysqli_num_fields($result);
-		echo "<h1>My Picks</h1>";
+		echo "<h1>These are My Picks</h1>";
 		echo "<table id='t01' border='1'><tr>";
 
 	// printing table headers
