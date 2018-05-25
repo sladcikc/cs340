@@ -3,6 +3,7 @@
 // values being an array with a subtitle, and content
 	$content = array(
 		"My Picks" => "picks.php",
+		"Leaderboard" => "lb.php",
 		"Players" => "players.php",
 		"Teams" => "teams.php",
 		"Log In" => "login.php",

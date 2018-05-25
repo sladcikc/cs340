@@ -23,10 +23,23 @@
 		}
 
 	// query to select all information from supplier table
-		$query = "SELECT name, avg, bats FROM player where position !='P' and status = 'A' ";
+		//$today = date("Y-m-d");
+		$day = "2018-5-12";
+		$view = "CREATE VIEW test11 AS SELECT name, avg, bats, position, status FROM player, game WHERE ((`game`.`date` = '2018-5-12') and ((`player`.`team_id` = `game`.`away_id`) or (`player`.`team_id` = `game`.`home_id`)))";
+		$query = "SELECT name, avg, bats FROM test11 where position !='P' and status = 'A' ";
 
 
 	// Get results from query
+		$val = mysql_query('select * from `test11`');
+
+		if(!$val)
+		{
+			$make_view = mysqli_query($conn, $view);
+			if (!$make_view){
+				die($view);
+			}
+		}
+
 		$result = mysqli_query($conn, $query);
 		if (!$result) {
 			die("Query to show fields from table failed");

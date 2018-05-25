@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- List User Info from Users Table -->
+
 <?php
-		$currentpage="List Users";
+		$currentpage="Leaderboard";
 		include "pages.php";
 ?>
 <html>
 	<head>
-		<title>List Users</title>
+		<title>Leaderboard</title>
 		<link rel="stylesheet" href="index.css">
 	</head>
 	<body>
@@ -23,7 +23,7 @@
 		}
 
 	// query to select all information from supplier table
-		$query = "SELECT * FROM user ";
+		$query = "SELECT * FROM leaderboard ORDER BY streak DESC ";
 
 	// Get results from query
 		$result = mysqli_query($conn, $query);
@@ -32,7 +32,7 @@
 		}
 	// get number of columns in table
 		$fields_num = mysqli_num_fields($result);
-		echo "<h1>NBTS Users:</h1>";
+		echo "<h1>LEADERBOARD</h1>";
 		echo "<table id='t01' border='1'><tr>";
 
 	// printing table headers
