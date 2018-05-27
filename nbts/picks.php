@@ -27,8 +27,14 @@
 			die('Could not connect: ' . mysql_error());
 		}
 
-	// query to select all information from supplier table
-		$query = "SELECT  game.date, player.name, pick.hit, pick.player_id as image FROM pick JOIN game ON pick.game_id = game.game_id JOIN player ON pick.player_id = player.player_id JOIN leaderboard ON pick.username = leaderboard.username ORDER BY game.date ASC";
+	// query to select all picks of a user from pick table
+		$query = "SELECT  game.date, player.name, pick.hit, pick.player_id as image FROM pick 
+				  JOIN game ON pick.game_id = game.game_id JOIN player ON pick.player_id = player.player_id 
+				  JOIN leaderboard ON pick.username = leaderboard.username 
+				  where pick.username = '$user'
+				  ORDER BY game.date ASC";
+
+
 	// Get results from query
 		$result = mysqli_query($conn, $query);
 		if (!$result) {
