@@ -2,7 +2,7 @@
 <!-- Add User Info to Table User -->
 <!-- Borrowed code from activity-1-cs340 -->
 <?php
-		$currentpage="Sign Up";
+		$currentpage="Delete User";
 		include "pages.php";
 
 ?>
@@ -19,7 +19,7 @@
 		// change the value of $dbuser and $dbpass to your username and password
 		include 'connectvars.php';
 		include 'header.php';
-		$msg = "Add a new user to the user table";
+		$msg = "Delete a user from the user table";
 
 		$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if (!$conn) {
@@ -33,24 +33,22 @@
 			$password = mysqli_real_escape_string($conn, $_POST['password']);
 
 			// Hashing the password here
-			// This functions autogenerates the SALT 
+			// This functions autogenerates the SALT
 			$hashed_password = password_hash($password, PASSWORD_DEFAULT);
-//			var_dump($hashed_password);
-
 
 			// See if username is already in the table
-			$queryIn = "SELECT * FROM user where username='$username' ";
+			$queryIn = "DELETE FROM user where username='$username' ";
 
 			$resultIn = mysqli_query($conn, $queryIn);
 			if (mysqli_num_rows($resultIn)> 0) {
-				$msg ="<h2>Can't Add to Table</h2> There is already a user with username $username<p>";
+				$msg ="<h2>Can't Delete from Table</h2> There is not a user with username $username<p>";
 			} else {
-				// attempt insert query
-				// Inserting the hashed_password instead of password???
-				$query = "INSERT INTO user (username, email, password )
-				VALUES ('$username', '$email', '$hashed_password' )";
+				// attempt delete query
+				// Deleting everything from the user input
+				$query = "DELETE FROM user
+				WHERE username='$username' and email='$email' and password='$hashed_password' ";
 				if(mysqli_query($conn, $query)){
-					$msg =  "The user added successfully.<p>";
+					$msg =  "The user was DELETED successfully.<p>";
 				} else{
 					echo "ERROR: Could not execute $query. ". mysqli_error($conn);
 				}
