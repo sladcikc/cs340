@@ -8,5 +8,6 @@
 		"Players" => "players.php",
 		"Teams" => "teams.php",
 		"Log In" => "login.php",
-		"Sign Up" => "signUp.php");
+		"Sign Up" => "signUp.php",
+		"Delete User" => "deleteUser.php");
 ?>
