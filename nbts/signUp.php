@@ -19,7 +19,7 @@
 		// change the value of $dbuser and $dbpass to your username and password
 		include 'connectvars.php';
 		include 'header.php';
-		$msg = "Add a new user to the user table";
+
 
 		$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if (!$conn) {

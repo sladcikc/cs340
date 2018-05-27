@@ -1,3 +1,8 @@
+<?php
+	session_start();
+	$user = $_SESSION['username'];
+?>
+
 <!DOCTYPE html>
 <!-- List User Info from Users Table -->
 <?php
@@ -22,7 +27,6 @@
 			die('Could not connect: ' . mysql_error());
 		}
 
-	// query to select all information from supplier table
 		//$today = date("Y-m-d");
 		$day = "2018-5-12";
 		$view = "CREATE VIEW playing_on AS SELECT name, avg, bats, position, status FROM player, game WHERE ((`game`.`date` = '2018-5-12') and ((`player`.`team_id` = `game`.`away_id`) or (`player`.`team_id` = `game`.`home_id`)))";

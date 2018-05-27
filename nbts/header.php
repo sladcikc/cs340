@@ -1,6 +1,10 @@
 <!-- Header for webpages -->
 <header>
-		NOT BEAT THE STREAK
+		NOT BEAT THE STREAK 
+		<?php 
+			if(!empty($_SESSION['username'])){
+				echo "<button id='logout' > <a href='logout.php' >Logout</a></button>";
+			} ?>
 </header>
 <nav>
 	<ul>
