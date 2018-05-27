@@ -1,12 +1,17 @@
-<!DOCTYPE html>
-<!-- List User Info from Users Table -->
 <?php
-		$currentpage="My Picks";
+	session_start();
+	$user = $_SESSION['username'];
+?>
+
+<!DOCTYPE html>
+
+<?php
+		$currentpage= $user."'s Picks";
 		include "pages.php";
 ?>
 <html>
 	<head>
-		<title>My Picks</title>
+		<title><?php echo $user ?>'s Picks</title>
 		<link rel="stylesheet" href="index.css">
 	</head>
 	<body>
@@ -23,8 +28,7 @@
 		}
 
 	// query to select all information from supplier table
-		$query = "SELECT * FROM pick ";
-
+		$query = "SELECT  game.date, player.name, pick.hit, pick.player_id as image FROM pick JOIN game ON pick.game_id = game.game_id JOIN player ON pick.player_id = player.player_id JOIN leaderboard ON pick.username = leaderboard.username ORDER BY game.date ASC";
 	// Get results from query
 		$result = mysqli_query($conn, $query);
 		if (!$result) {
@@ -32,7 +36,7 @@
 		}
 	// get number of columns in table
 		$fields_num = mysqli_num_fields($result);
-		echo "<h1>My Picks</h1>";
+		echo "<h1>$user's Picks</h1>";
 		echo "<table id='t01' border='1'><tr>";
 
 	// printing table headers
@@ -41,12 +45,20 @@
 			echo "<td><b>$field->name</b></td>";
 		}
 		echo "</tr>\n";
+		
 		while($row = mysqli_fetch_row($result)) {
+			$date = $row[0];
+			$name = $row[1];
+			$hit = $row[2];
+			$id = $row[3];
+
 			echo "<tr>";
-			// $row is array... foreach( .. ) puts every element
-			// of $row to $cell variable
-			foreach($row as $cell)
-				echo "<td>$cell</td>";
+
+			echo "<td>$date</td>";
+			echo "<td>$name</td>";
+			echo "<td>$hit</td>";
+			$url = "http://gdx.mlb.com/images/gameday/mugshots/mlb/".$id.".jpg";
+			echo "<td><img src='$url'/></td>";
 			echo "</tr>\n";
 		}
 		// Free data and close the connection to DB

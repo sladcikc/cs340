@@ -25,12 +25,12 @@
 	// query to select all information from supplier table
 		//$today = date("Y-m-d");
 		$day = "2018-5-12";
-		$view = "CREATE VIEW test11 AS SELECT name, avg, bats, position, status FROM player, game WHERE ((`game`.`date` = '2018-5-12') and ((`player`.`team_id` = `game`.`away_id`) or (`player`.`team_id` = `game`.`home_id`)))";
-		$query = "SELECT name, avg, bats FROM test11 where position !='P' and status = 'A' ";
+		$view = "CREATE VIEW playing_on AS SELECT name, avg, bats, position, status FROM player, game WHERE ((`game`.`date` = '2018-5-12') and ((`player`.`team_id` = `game`.`away_id`) or (`player`.`team_id` = `game`.`home_id`)))";
+		$query = "SELECT name, avg, bats FROM playing_on where position !='P' and status = 'A' ";
 
 
 	// Get results from query
-		$val = mysql_query('select * from `test11`');
+		$val = mysql_query('select * from `playing_on`');
 
 		if(!$val)
 		{
@@ -64,6 +64,8 @@
 			echo "</tr>\n";
 		}
 		// Free data and close the connection to DB
+		$drop = "DROP VIEW playing_on";
+		mysqli_query($conn, $drop);
 		mysqli_free_result($result);
 		mysqli_close($conn);
 	?>

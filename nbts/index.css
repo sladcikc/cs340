@@ -9,6 +9,7 @@ header {
 
 }
 header > h1 {
+	text-align: center;
 	color: white;
 	font-size : 3em;
 	font-style: italic;
@@ -233,39 +234,57 @@ fieldset input[type="submit"], fieldset input[type="reset"], fieldset input[type
 #passformat {
 	float: right;
 	width: 50%;
-	font-size: 0.8em;"
+	font-size: 0.8em;
+}
+
+h1{
+    margin-left:auto; 
+	margin-right:auto;
+	text-align: center;	
+
 }
 
 table,
 th,
 td {
+	margin-left:auto; 
+    margin-right:auto;
   border: 1px solid black;
   border-collapse: collapse;
 }
 
 th,
 td {
+	margin-left:auto; 
+    margin-right:auto;
   padding: 5px;
 }
 
 table {
-  width: 100%;
+    margin-left:auto; 
+    margin-right:auto;
+  	width: 50%;
+  	align-content: center;
 }
 
 table,
 th,
 td {
+	margin-left:auto; 
+    margin-right:auto;
   border: 1px solid black;
   border-collapse: collapse;
 }
 
 th,
 td {
+	margin-left:auto; 
+    margin-right:auto;
   padding: 5px;
   text-align: left;
 }
 table#t01 {
-	width:400px;
+	width:50%;
 }
 
 table#t01 tr:nth-child(even) {
@@ -281,10 +300,10 @@ table#t01 th {
   color: white;
 }
 
-#t01  tr:hover {
+/* #t01  tr:hover {
   background-color: orange;
   color: orange;
-}
+} */
 caption {
   font-weight: bold;
   padding: 0.5em 0 0.5em 0;

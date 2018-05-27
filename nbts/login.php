@@ -1,5 +1,9 @@
+<?php
+	session_start();
+?>
+
 <!DOCTYPE html>
-<!-- Check username and password to attempt successfull login -->
+
 <?php
 		$currentpage="Log In";
 		include "pages.php";
@@ -36,7 +40,8 @@
 					$verify = password_verify($_POST['password'], $row['password']);
 					// If it is a match display message, else error message.
 					if ($verify) {
-						echo "SUCCESS!";
+						$_SESSION['username']= $username;
+						$suc = true;
 					}
 					else {
 						echo "WRONG USERNAME OR PASSWORD.";
@@ -65,7 +70,7 @@
 				</fieldset>
 				<!-- Submit & Clear buttons -->
 				<p>
-	        <input type = "submit"  value = "Submit" />
+	        <input type = "submit"  value = "Submit" onclick="window.location.href='./picks.php'"/>
 	        <input type = "reset"  value = "Clear Form" />
 	      </p>
 			</form>
