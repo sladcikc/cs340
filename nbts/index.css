@@ -30,6 +30,14 @@ html {
 	font-family: Helvetica;
 	font-size: 18px;
 }
+
+body{
+	background-image: url("oie_ydkURhzk8wJi.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -244,6 +252,10 @@ h1{
 
 }
 
+tbody{
+	box-shadow: -11px 7px 20px 3px #88888854;
+}
+
 table,
 th,
 td {
@@ -279,17 +291,19 @@ td {
 th,
 td {
 	margin-left:auto;
-    margin-right:auto;
+	margin-right:auto;
   padding: 5px;
-  text-align: left;
+  text-align: center;
 }
 table#t01 {
 	width:50%;
+
 }
 
 table#t01 tr:nth-child(even) {
   background-color: #e0ebeb;
 	border-radius: 15px;
+
 
 }
 
@@ -302,6 +316,7 @@ table#t01 tr:nth-child(odd) {
 table#t01 th {
   background-color: black;
   color: white;
+
 }
 
 /* #t01  tr:hover {
@@ -328,4 +343,14 @@ caption {
 .btn2:hover {
   background: orange;
   text-decoration: none;
+}
+
+
+#logout{
+	float: right;
+
+}
+
+#homepage{
+	vertical-align: middle;
 }
