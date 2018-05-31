@@ -238,16 +238,16 @@ fieldset input[type="submit"], fieldset input[type="reset"], fieldset input[type
 }
 
 h1{
-    margin-left:auto; 
+    margin-left:auto;
 	margin-right:auto;
-	text-align: center;	
+	text-align: center;
 
 }
 
 table,
 th,
 td {
-	margin-left:auto; 
+	margin-left:auto;
     margin-right:auto;
   border: 1px solid black;
   border-collapse: collapse;
@@ -255,13 +255,13 @@ td {
 
 th,
 td {
-	margin-left:auto; 
+	margin-left:auto;
     margin-right:auto;
   padding: 5px;
 }
 
 table {
-    margin-left:auto; 
+    margin-left:auto;
     margin-right:auto;
   	width: 50%;
   	align-content: center;
@@ -270,7 +270,7 @@ table {
 table,
 th,
 td {
-	margin-left:auto; 
+	margin-left:auto;
     margin-right:auto;
   border: 1px solid black;
   border-collapse: collapse;
@@ -278,7 +278,7 @@ td {
 
 th,
 td {
-	margin-left:auto; 
+	margin-left:auto;
     margin-right:auto;
   padding: 5px;
   text-align: left;
@@ -289,10 +289,14 @@ table#t01 {
 
 table#t01 tr:nth-child(even) {
   background-color: #e0ebeb;
+	border-radius: 15px;
+
 }
 
 table#t01 tr:nth-child(odd) {
   background-color: #fff;
+	border-radius: 15px;
+
 }
 
 table#t01 th {
