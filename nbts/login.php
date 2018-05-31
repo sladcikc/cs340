@@ -1,26 +1,12 @@
 <?php
 	session_start();
-?>
 
-<!DOCTYPE html>
-
-<?php
 		$currentpage="Log In";
 		include "pages.php";
-?>
-<!-- Need to change input verification file.js -->
-<html lang ="en">
-	<head>
-		<title>Log In</title>
-		<link rel="stylesheet" href="index.css">
-		<script type="text/javascript"  src="verifyinput.js" > </script>
-	</head>
-	<body>
 
-	<?php
 		// Including files to connect to DB
 		include 'connectvars.php';
-		include 'header.php';
+		//include 'header.php';
 //		session_start();
 		$db = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 		if (!$db) {
@@ -41,7 +27,9 @@
 					// If it is a match display message, else error message.
 					if ($verify) {
 						$_SESSION['username']= $username;
-						$suc = true;
+						$succ = true;
+						header("Location: http://web.engr.oregonstate.edu/~sladcikc/CS340/cs340/cs340/nbts/picks.php", true, 301);
+						
 					}
 					else {
 						echo "WRONG USERNAME OR PASSWORD.";
@@ -52,9 +40,35 @@
 				}
 	   }
 
-	?>
+?>
+<!DOCTYPE html>
+	<html lang ="en">
+	<head>
+		<title>Log In</title>
+		<link rel="stylesheet" href="index.css">
+		<script type="text/javascript"  src="verifyinput.js" > </script>
+	</head>
+	<header>
+		NOT BEAT THE STREAK 
+		<?php 
+			if(!empty($_SESSION['username'])){
+				echo "<button id='logout' > <a onclick=window.location.assign('http://web.engr.oregonstate.edu/~sladcikc/CS340/cs340/cs340/nbts/logout.php')>Logout</a></button>";
+			} ?>
+	</header>
+	<nav>
+		<ul>
+		<?php
+		if(!empty($_SESSION['username'])){
+			foreach ($content as $page => $location){
+				echo "<li><a href='$location' ".($page==$currentpage?" class='active'":"").">".$page."</a></li>";
+			}
+		}
+		?>
+		</ul>
+	</nav>
+	<body>
 		<section>
-	    <h2> <?php echo $msg; ?> </h2>
+	    <h2><?php echo $msg; ?></h2>
 			<!-- Form for user login -->
 			<form role="form" method="post" action="login.php" id="addForm">
 				<fieldset>
@@ -66,11 +80,12 @@
 						<p>
 								<label for="Password">Password:</label>
 								<input type="password" class="required" name="password" id="password" required>
+
 						</p>
 				</fieldset>
 				<!-- Submit & Clear buttons -->
 				<p>
-	        <input type = "submit"  value = "Submit" />
+	        <input type = "submit"  value = "Submit"/>
 	        <input type = "reset"  value = "Clear Form" />
 	      </p>
 			</form>
