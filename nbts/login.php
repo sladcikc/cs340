@@ -70,7 +70,7 @@
 				</fieldset>
 				<!-- Submit & Clear buttons -->
 				<p>
-	        <input type = "submit"  value = "Submit" onclick="window.location.href='./picks.php'"/>
+	        <input type = "submit"  value = "Submit" />
 	        <input type = "reset"  value = "Clear Form" />
 	      </p>
 			</form>

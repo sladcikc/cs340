@@ -2,12 +2,11 @@
 //$content holds a 2D array with keys being menu names and
 // values being an array with a subtitle, and content
 	$content = array(
-		"Home" 	=> "index.php",
 		"My Picks" => "picks.php",
+		"Delete Account" => "deleteUser.php",
 		"Leaderboard" => "lb.php",
 		"Players" => "players.php",
-		"Teams" => "teams.php",
-		"Log In" => "login.php",
-		"Sign Up" => "signUp.php",
-		"Delete User" => "deleteUser.php");
+		"Teams" => "teams.php"
+		);
+
 ?>
