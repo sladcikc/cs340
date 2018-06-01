@@ -50,10 +50,10 @@
 		}
 		// if both are set then create a view that shows the teams that play that day
 		elseif($team_ID && $day) {
-			$view = "CREATE VIEW plays_on_team AS SELECT game_id, team_id, name, avg, bats, position, status
+			$view = "CREATE VIEW plays_on_team AS SELECT game_id, team_id, name, player_id, avg, bats, position, status
 							FROM player, game
 							WHERE ((`game`.`date` = '$day' ) and ((`player`.`team_id` = `game`.`away_id`) or (`player`.`team_id` = `game`.`home_id`)))";
-			$query = "SELECT distinct name, game_id, avg, bats FROM plays_on_team
+			$query = "SELECT distinct name, avg, bats, player_id as mug, game_id as pick FROM plays_on_team
 								WHERE position !='P' and status = 'A' and team_id = $team_ID
 								ORDER BY avg DESC";
 			$val = mysql_query('select * from `plays_on_team`');
@@ -120,19 +120,53 @@
 
 
 		// Fill the table with rows of players
-
+/* 		action='picks.php' */
+		echo "<form id='player_table' method='POST'  >";
 		while($row = mysqli_fetch_row($result)) {
 			echo "<tr>";
-			foreach($row as $cell)
-				echo "<td>$cell</td>";
+			$name = $row[0];
+			$avg = $row[1];
+			$bats = $row[2];
+			$id = $row[3];
+			$_SESSION['gameid'] = $row[4];
+
+			echo "<tr>";
+			echo "<td>$name</td>";
+			echo "<input type='hidden' value='$name' name='picked' disabled='disabled'/>";
+			echo "<td>$avg</td>";
+			echo "<td>$bats</td>";
+			$url = "http://gdx.mlb.com/images/gameday/mugshots/mlb/".$id.".jpg";
+			echo "<td><img id='mug' src='$url'/></td>";
+			#echo "<input type='hidden' name='picked' value='$id' />";
+			echo "<td><input type='radio' name='picked' value='$id'</input></td>";
 			echo "</tr>\n";
+			echo "</tr>\n";
+
 		}
+
+
+		echo " <button type='submit'>Submit Pick</button>";
+		var_dump($_POST);
+		var_dump($_GET);
+		$gameid = $_SESSION['gameid'];
+		$pickID = $_POST['picked'];
+		$day = $_GET['date'];
+
+		echo $gameid." ";
+		echo $pickID." ";
+		echo $user." ";
+		echo $day;
+
+		echo "</form>";
 		// Free data and close the connection to DB
 		if (!$team_ID){
 			$drop = "DROP VIEW playing_on";
 		} else {
 			$drop = "DROP VIEW plays_on_team";
 		}
+		$pq = "INSERT INTO pick VALUES($gameid, $pickID, '$user', '', '$day')";
+		$re = mysqli_query($conn, $pq);
+
 		mysqli_query($conn, $drop);
 		mysqli_free_result($result);
 		mysqli_close($conn);
