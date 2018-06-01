@@ -1,7 +1,7 @@
 <!-- Header for webpages -->
 <header>
-		NOT BEAT THE STREAK 
-		<?php 
+		NOT BEAT THE STREAK
+		<?php
 			if(!empty($_SESSION['username'])){
 				echo "<button id='logout' > <a onclick=window.location.assign('http://web.engr.oregonstate.edu/~sladcikc/CS340/cs340/cs340/nbts/logout.php')>Logout</a></button>";
 			} ?>

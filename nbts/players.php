@@ -27,35 +27,46 @@
 			die('Could not connect: ' . mysql_error());
 		}
 
-		// Get the date to display players that play on that date
+		$day = null;
+		$team_ID = null;
+		// Get the date if set
 		if(isset($_GET['date'])) {
 			$day = $_GET['date'];
-		} else {
-			$day = null;
 		}
-
-		// Set the team ID to create the view
-		$team_ID = null;
+		// Get the team_ID if set
 		if(isset($_GET['team_ID'])) {
 			$team_ID = $_GET['team_ID'];
-		} else {
-			$team_ID = null;
 		}
-		// If the team_ID is not set then create a view and make it happen cap'n
+
+		// If the team_ID is not set, then create a view for players that play that day
  		if (!$team_ID) {
-			$team_ID = null;
-			$view = "CREATE VIEW playing_on AS SELECT name, avg, bats, position, status FROM player,
-			game WHERE ((`game`.`date` = '$day' ) and ((`player`.`team_id` = `game`.`away_id`) or (`player`.`team_id` = `game`.`home_id`)))";
-			$query = "SELECT distinct name, avg, bats FROM playing_on where position !='P' and status = 'A'  ORDER BY avg DESC";
+			$view = "CREATE VIEW playing_on AS SELECT name, avg, bats, position, status
+							FROM player, game
+							WHERE ((`game`.`date` = '$day' ) and ((`player`.`team_id` = `game`.`away_id`) or (`player`.`team_id` = `game`.`home_id`)))";
+			$query = "SELECT distinct name, avg, bats
+								FROM playing_on where position !='P' and status = 'A'
+								ORDER BY avg DESC";
 			$val = mysql_query('select * from `playing_on`');
 		}
-		// Else team_ID is not set then create a view and make it happen cap'n
+		// if both are set then create a view that shows the teams that play that day
+		elseif($team_ID && $day) {
+			$view = "CREATE VIEW plays_on_team AS SELECT game_id, team_id, name, avg, bats, position, status
+							FROM player, game
+							WHERE ((`game`.`date` = '$day' ) and ((`player`.`team_id` = `game`.`away_id`) or (`player`.`team_id` = `game`.`home_id`)))";
+			$query = "SELECT distinct name, game_id, avg, bats FROM plays_on_team
+								WHERE position !='P' and status = 'A' and team_id = $team_ID
+								ORDER BY avg DESC";
+			$val = mysql_query('select * from `plays_on_team`');
+		}
+		// Else just create a view of players that play on a specific team
 		else {
-			$day = null;
-			$view = "CREATE VIEW plays_on_team AS SELECT team_id, name, avg, bats, position, status FROM player,
-			game WHERE ((`player`.`team_id` = `game`.`away_id`) or (`player`.`team_id` = `game`.`home_id`))";
-			$query = "SELECT distinct name, avg, bats FROM plays_on_team where position !='P' and status = 'A'
-								and team_id = $team_ID ORDER BY avg DESC";
+			$view = "CREATE VIEW plays_on_team AS SELECT team_id, name, avg, bats, position, status
+							FROM player, game
+							WHERE ((`player`.`team_id` = `game`.`away_id`) or (`player`.`team_id` = `game`.`home_id`))";
+			$query = "SELECT distinct name, avg, bats
+								FROM plays_on_team where position !='P' and status = 'A'
+								and team_id = $team_ID
+								ORDER BY avg DESC";
 			$val = mysql_query('select * from `plays_on_team`');
 		}
 		// Get results from query
@@ -68,6 +79,7 @@
 		}
 
 		$result = mysqli_query($conn, $query);
+
 		if (!$result) {
 			die("Query to show fields from table failed");
 		}
@@ -89,33 +101,26 @@
 					}
 		echo "
 				</select>
+					<input type='date' id='date' name='date'>
 					<button type='submit'>Submit</button>
 				</form>";
 
 		echo "<table id='t01' border='1'><tr>";
-		echo "
-		<form method='GET' action='players.php'>
-  		<div>
-    		<label for='date'>Choose By Date</label>
-    		<input type='date' id='date' name='date'>
-				<button type='submit'>Submit</button>
-  		</div>
-	  </form>";
 
 
 		// get number of columns in table
 		$fields_num = mysqli_num_fields($result);
 		// printing table headers
-		if($team_ID) {
-			echo "<h2>$team_name</h2>";
-		}
+		// Don't show table header unless one var is set
 		for($i=0; $i<$fields_num; $i++) {
 			$field = mysqli_fetch_field($result);
 			echo "<td><b>$field->name</b></td>";
 		}
 		echo "</tr>\n";
 
+
 		// Fill the table with rows of players
+
 		while($row = mysqli_fetch_row($result)) {
 			echo "<tr>";
 			foreach($row as $cell)

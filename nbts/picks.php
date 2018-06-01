@@ -11,7 +11,7 @@
 ?>
 <html>
 	<head>
-		<title><?php 			
+		<title><?php
 			if(!empty($_SESSION['username'])){
 				echo $user."'s Picks";}
 				else{
@@ -33,9 +33,9 @@
 		}
 
 	// query to select all picks of a user from pick table
-		$query = "SELECT  game.date, player.name, pick.hit, pick.player_id as image FROM pick 
-				  JOIN game ON pick.game_id = game.game_id JOIN player ON pick.player_id = player.player_id 
-				  JOIN leaderboard ON pick.username = leaderboard.username 
+		$query = "SELECT  game.date, player.name, pick.hit, pick.player_id as image FROM pick
+				  JOIN game ON pick.game_id = game.game_id JOIN player ON pick.player_id = player.player_id
+				  JOIN leaderboard ON pick.username = leaderboard.username
 				  where pick.username = '$user'
 				  ORDER BY game.date ASC";
 
@@ -50,7 +50,7 @@
 		}
 	// get number of columns in table
 		$fields_num = mysqli_num_fields($result);
-		
+
 		if(!empty($_SESSION['username'])){
 			echo "<h1>$user's Picks</h1>";
 			echo "<table id='t01' border='1'><tr>";
@@ -60,13 +60,13 @@
 				echo "<td><b>$field->name</b></td>";
 			}
 			echo "</tr>\n";
-			
+
 			while($row = mysqli_fetch_row($result)) {
 				$date = $row[0];
 				$name = $row[1];
 				$hit = $row[2];
 				$id = $row[3];
-				
+
 				echo "<tr>";
 
 				echo "<td>$date</td>";
@@ -81,7 +81,7 @@
 				$name = $row[1];
 				$hit = $row[2];
 				$id = $row[3];
-				
+
 				echo "<tr>";
 
 				echo "<td>$date</td>";
@@ -96,7 +96,7 @@
 		{
 			echo "<h1>Nobody here but us chickens!</h1>";
 		}
-	
+
 
 
 		// Free data and close the connection to DB
