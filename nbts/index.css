@@ -1,11 +1,13 @@
 header {
 	height: 40px;
-	background-color: #baffaa;
+	background-color: #00703C;
+	color: white;
 	margin-top: 0px;
 	margin-right: 0px;
 	margin-bottom: 0px;
 	padding: 20px 20px 20px 20px;
-	font-size: 1.5em;
+	font-size: 2.5em;
+	text-align: center;
 
 }
 header > h1 {
@@ -66,10 +68,12 @@ nav li a {
 }
 nav li a:hover:not(.active) {
     background-color: lightgrey;
+		color:  #000000;
 }
 
 nav .active {
-    background-color: #baffaa;
+    background-color: lightgrey;
+		color:  #000000;
 }
 main {
 	overflow:auto;
@@ -301,7 +305,7 @@ table#t01 {
 }
 
 table#t01 tr:nth-child(even) {
-  background-color: #e0ebeb;
+  background-color: lightgrey;
 	border-radius: 15px;
 
 
