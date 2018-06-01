@@ -35,11 +35,12 @@
 		if (!$result) {
 			die("Query to show fields from table failed");
 		}
+	
+
 	// get number of columns in table
 		$fields_num = mysqli_num_fields($result);
 		echo "<h1>TEAMS:</h1>";
 		echo "<table id='t01' border='1'><tr>";
-
 	// printing table headers
 		for($i=0; $i<$fields_num; $i++) {
 			$field = mysqli_fetch_field($result);
